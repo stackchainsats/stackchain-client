@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Logo from "../public/logo.png";
 
 const SideMenu = ({ menuOpen }) => {
   const router = useRouter();
@@ -42,7 +43,7 @@ const SideMenu = ({ menuOpen }) => {
       <div className="logo-link">
         <Link href="/">
           <div className="menu-logo">
-            <Image src={"/logo.png"} width={60} height={60} />
+            <img src={"/logo.png"} />
             <span className="menu-logo-text">Stackchain</span>
           </div>
         </Link>
@@ -111,6 +112,8 @@ const MenuWrapper = styled.div`
     align-items: center;
     & img {
       margin-right: 8px;
+      width: 60px;
+      height: 60px;
     }
     &-text {
       font-weight: 500;
