@@ -27,6 +27,11 @@ const SideMenu = ({ menuOpen }) => {
       icon: <MenuSVG />,
       label: "Memepool",
     },
+    {
+      url: "/statistics",
+      icon: <MenuSVG />,
+      label: "Statistics",
+    },
   ];
 
   return (
@@ -38,6 +43,7 @@ const SideMenu = ({ menuOpen }) => {
         <Link href="/">
           <div className="menu-logo">
             <Image src={"/logo.png"} width={60} height={60} />
+            <span className="menu-logo-text">Stackchain</span>
           </div>
         </Link>
       </div>
@@ -101,6 +107,15 @@ const MenuWrapper = styled.div`
 
   .menu-logo {
     padding: 20px;
+    display: flex;
+    align-items: center;
+    & img {
+      margin-right: 8px;
+    }
+    &-text {
+      font-weight: 500;
+      font-size: 16px;
+    }
   }
 
   .menu-header {
