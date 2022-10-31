@@ -11,8 +11,8 @@ export default function Home() {
       </Head>
 
       <h1>Dashboard Page</h1>
-      <Link href="/components" style={{ color: "#00ab55" }}>
-        Components here
+      <Link href="/components" style={{ color: "#0000EE" }}>
+        Components
       </Link>
     </div>
   );
