@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -10,6 +11,9 @@ export default function Home() {
       </Head>
 
       <h1>Dashboard Page</h1>
+      <Link href="/components" style={{ color: "#00ab55" }}>
+        Components here
+      </Link>
     </div>
   );
 }
