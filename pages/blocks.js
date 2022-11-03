@@ -4,9 +4,9 @@ const Blocks = ({ blocks }) => {
       <h1>Blocks Page</h1>
       {blocks
         .sort((a, b) => b.height - a.height)
-        .map((block) => {
+        .map((block, index) => {
           return (
-            <div style={{ display: "flex" }}>
+            <div style={{ display: "flex" }} key={index}>
               <div>{block.height}: </div>
               <div>{block.builder}</div>
             </div>
