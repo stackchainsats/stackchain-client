@@ -3,6 +3,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import "../styles/globals.css";
 import Layout from "../components/layout";
+import BlocksJSON from "../blocks.json";
 
 const noLayoutRoutes = ["/login"];
 
@@ -12,7 +13,7 @@ const MyApp = ({ Component, pageProps }) => {
   const router = useRouter();
 
   useEffect(() => {
-    // getBlocks();
+    setBlocks(BlocksJSON);
   }, []);
 
   // Read
