@@ -11,9 +11,9 @@ const MobileMenuIcon = () => {
     >
       <path
         fill="none"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="32"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="32"
         d="M96 256h320M96 176h320M96 336h320"
       ></path>
     </svg>
