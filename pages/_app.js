@@ -14,17 +14,17 @@ const MyApp = ({ Component, pageProps }) => {
   const router = useRouter();
 
   useEffect(() => {
-    // setBlocks(BlocksJSON);
-    getBlocks();
+    setBlocks(BlocksJSON);
+    // getBlocks();
 
     // getMempool();
   }, []);
 
   // Read
   const getBlocks = async () => {
-    const res = await axios.get("/api/blocks");
-    const data = res.data;
-    setBlocks(data);
+    // const res = await axios.get("/api/blocks");
+    // const data = res.data;
+    // setBlocks(data);
   };
 
   const getMempool = async () => {
