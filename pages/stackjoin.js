@@ -70,9 +70,9 @@ const Stackjoin = () => {
           <div className="twitter">Twitter Handle</div>
           <div className="url">URL</div>
         </div>
-        {stackjoins.map((stackjoin) => {
+        {stackjoins.map((stackjoin, index) => {
           return (
-            <div className="stackjoin-row">
+            <div className="stackjoin-row" key={index}>
               <Checkbox checked={checked} onChange={handleChange} />
               <div className="amount">{stackjoin.amount}</div>
               <div className="twitter">{stackjoin.miner}</div>
