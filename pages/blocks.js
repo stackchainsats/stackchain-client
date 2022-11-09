@@ -62,18 +62,6 @@ const Blocks = ({ blocks, setBlockBuilding }) => {
     // getBlocks();
   };
 
-  // Delete
-  const deleteBlock = async (blockToDelete) => {
-    // await axios({
-    //   method: "DELETE",
-    //   url: "/api/blocks/",
-    //   data: {
-    //     id: blockToDelete,
-    //   },
-    // });
-    // await getBlocks();
-  };
-
   return (
     <div>
       <h1>Blocks Page</h1>
