@@ -75,7 +75,6 @@ const Blocks = ({ blocks, setBlockBuilding }) => {
                 <BlockDisplay
                   block={block}
                   setEditing={setEditing}
-                  deleteBlock={deleteBlock}
                 />
               ) : (
                 <BlockEdit
@@ -92,7 +91,7 @@ const Blocks = ({ blocks, setBlockBuilding }) => {
   );
 };
 
-const BlockDisplay = ({ block, setEditing, deleteBlock }) => {
+const BlockDisplay = ({ block, setEditings }) => {
   return (
     <BlockWrapper key={block._id}>
       <div>
@@ -112,7 +111,6 @@ const BlockDisplay = ({ block, setEditing, deleteBlock }) => {
         </div>
         <div style={{ display: "flex" }}>
           <Button onClick={() => setEditing(block._id)}>Edit</Button>
-          <Button onClick={() => deleteBlock(block._id)}>Delete</Button>
         </div>
       </div>
 
