@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-const TextInput = ({ type = "text", onChange, value, label = "", id }) => {
+const TextInput = ({  name, type = "text", onChange, value, label = "", id, defaultValue }) => {
   return (
     <TextInputStyles>
       {label && <label>{label}</label>}
-      <input type={type} onChange={onChange} value={value} id={id} />
+      <input name={name} type={type} onChange={onChange} value={value} id={id} defaultValue={defaultValue} />
     </TextInputStyles>
   );
 };
