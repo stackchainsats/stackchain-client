@@ -27,10 +27,11 @@ const AddStackjoin = () => {
       }
     );
 
-    // height.value = "";
-    // builder.value = "";
-    // twitterURL.value = "";
-    // getBlocks();
+    setStackjoin({
+      amount: "",
+      miner: "",
+      twitterURL: "",
+    });
   };
 
   return (
