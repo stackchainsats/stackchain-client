@@ -41,7 +41,7 @@ const Stackjoin = () => {
   React.useEffect(() => {
     getStackjoins();
   }, []);
-
+  console.log("stackjoins", stackjoins);
   const getStackjoins = async () => {
     // setBlocks(BlocksJSON);
     // console.log("getBlocks");
@@ -49,11 +49,25 @@ const Stackjoin = () => {
       "https://stackchain-backend.herokuapp.com/api/stackjoins"
     );
     const data = res.data;
-    setStackjoins(data);
+    const checkedAdded = data.map((item) => {
+      return { ...item, checked: false };
+    });
+
+    setStackjoins(checkedAdded);
   };
 
-  const handleChange = (e) => {
-    setChecked(e.target.checked);
+  const handleChange = (e, id) => {
+    console.log("id", id);
+    console.log("e.target.checked", e.target.checked);
+
+    // setChecked(e.target.checked);
+    const updatedStackjoins = [...stackjoins].map((stackjoin) => {
+      if (stackjoin._id === id) {
+        return { ...stackjoin, checked: e.target.checked };
+      }
+      return stackjoin;
+    });
+    setStackjoins(updatedStackjoins);
   };
 
   return (
@@ -73,7 +87,10 @@ const Stackjoin = () => {
         {stackjoins.map((stackjoin, index) => {
           return (
             <div className="stackjoin-row" key={index}>
-              <Checkbox checked={checked} onChange={handleChange} />
+              <Checkbox
+                checked={stackjoin.checked}
+                onChange={(e) => handleChange(e, stackjoin._id)}
+              />
               <div className="amount">{stackjoin.amount}</div>
               <div className="twitter">{stackjoin.miner}</div>
               <div className="url">
@@ -81,6 +98,25 @@ const Stackjoin = () => {
               </div>
             </div>
           );
+        })}
+        <div>
+          {stackjoins.reduce((acc, cur) => {
+            if (cur.checked) {
+              return acc + cur.amount;
+            }
+            return acc;
+          }, 0)}
+        </div>
+
+        <Button>Generate Tweet</Button>
+        {stackjoins.map((stackjoin) => {
+          if (stackjoin.checked) {
+            return (
+              <div>
+                ${stackjoin.amount} {stackjoin.miner} {stackjoin.twitterURL}
+              </div>
+            );
+          }
         })}
       </div>
     </StackjoinWrapper>

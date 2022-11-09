@@ -122,6 +122,11 @@ const BlockDisplay = ({ block, setEditing }) => {
 };
 
 const BlockEdit = ({ block, onSubmitEdits, setEditing, setBlockData }) => {
+  const [height, setHeight] = useState(block.height)
+  const [builder, setBuilder] = useState(block.builder)
+  const [twitterURL, setTwitterURL] = useState(block.twitterURL)
+
+  
   return (
     <BlockWrapper key={block._id} className="DataOutput__editing">
       <form onSubmit={(e) => onSubmitEdits(e, block._id)}>
@@ -130,8 +135,8 @@ const BlockEdit = ({ block, onSubmitEdits, setEditing, setBlockData }) => {
             type="text"
             name="height"
             label="Height"
-            defaultValue={block.height}
-            value={block.height}
+            value={height}
+            onChange={(e) => setHeight(e.target.value) }
           />
         </div>
         <div className="DataOutput__editing--option">
@@ -139,8 +144,8 @@ const BlockEdit = ({ block, onSubmitEdits, setEditing, setBlockData }) => {
             type="text"
             name="builder"
             label="Builder"
-            defaultValue={block.builder}
-            value={block.builder}
+            value={builder}
+            onChange={(e) => setBuilder(e.target.value) }
           />
         </div>
         <div className="DataOutput__editing--option">
@@ -148,8 +153,8 @@ const BlockEdit = ({ block, onSubmitEdits, setEditing, setBlockData }) => {
             type="text"
             name="twitterURL"
             label="Twitter URL"
-            defaultValue={block.twitterURL}
-            value={block.twitterURL}
+            value={twitterURL}
+            onChange={(e) => setTwitterURL(e.target.value)}
           />
         </div>
         <div style={{ display: "flex" }}>

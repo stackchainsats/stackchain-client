@@ -20,6 +20,10 @@ const AddStackjoin = () => {
   const onSubmitStackjoin = async (e) => {
     e.preventDefault();
 
+    if (isNaN(stackjoin.amount)) {
+      return;
+    }
+
     await axios.post(
       "https://stackchain-backend.herokuapp.com/api/stackjoins",
       {
