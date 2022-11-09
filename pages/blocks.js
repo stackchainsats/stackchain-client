@@ -139,7 +139,7 @@ const BlockEdit = ({ block, onSubmitEdits, setEditing, setBlockData }) => {
           <TextInput
             type="text"
             name="height"
-            labelText="Height"
+            label="Height"
             defaultValue={block.height}
             value={block.height}
           />
@@ -148,7 +148,7 @@ const BlockEdit = ({ block, onSubmitEdits, setEditing, setBlockData }) => {
           <TextInput
             type="text"
             name="builder"
-            labelText="Builder"
+            label="Builder"
             defaultValue={block.builder}
             value={block.builder}
           />
@@ -157,7 +157,7 @@ const BlockEdit = ({ block, onSubmitEdits, setEditing, setBlockData }) => {
           <TextInput
             type="text"
             name="twitterURL"
-            labelText="Twitter URL"
+            label="Twitter URL"
             defaultValue={block.twitterURL}
             value={block.twitterURL}
           />

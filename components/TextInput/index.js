@@ -20,7 +20,7 @@ const TextInputStyles = styled.div`
     font-size: 13px;
     font-weight: 800;
     line-height: 16px;
-    padding-bottom: 8px;
+    padding: 8px 0;
     transform-origin: top left;
   }
   & input {
