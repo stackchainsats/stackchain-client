@@ -91,7 +91,7 @@ const Blocks = ({ blocks, setBlockBuilding }) => {
   );
 };
 
-const BlockDisplay = ({ block, setEditings }) => {
+const BlockDisplay = ({ block, setEditing }) => {
   return (
     <BlockWrapper key={block._id}>
       <div>
