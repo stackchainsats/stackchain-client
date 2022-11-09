@@ -41,7 +41,7 @@ const Stackjoin = () => {
   React.useEffect(() => {
     getStackjoins();
   }, []);
-  console.log("stackjoins", stackjoins);
+
   const getStackjoins = async () => {
     // setBlocks(BlocksJSON);
     // console.log("getBlocks");
@@ -57,10 +57,6 @@ const Stackjoin = () => {
   };
 
   const handleChange = (e, id) => {
-    console.log("id", id);
-    console.log("e.target.checked", e.target.checked);
-
-    // setChecked(e.target.checked);
     const updatedStackjoins = [...stackjoins].map((stackjoin) => {
       if (stackjoin._id === id) {
         return { ...stackjoin, checked: e.target.checked };
@@ -109,10 +105,10 @@ const Stackjoin = () => {
         </div>
 
         <Button>Generate Tweet</Button>
-        {stackjoins.map((stackjoin) => {
+        {stackjoins.map((stackjoin, index) => {
           if (stackjoin.checked) {
             return (
-              <div>
+              <div key={index}>
                 ${stackjoin.amount} {stackjoin.miner} {stackjoin.twitterURL}
               </div>
             );
