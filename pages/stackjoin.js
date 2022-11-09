@@ -3,7 +3,6 @@ import Checkbox from "../components/Checkbox";
 import Button from "../components/Button";
 import Link from "next/link";
 import axios from "axios";
-import Button from "../components/Button";
 import TextInputStyles from "../components/TextInput";
 
 const Stackjoin = () => {
