@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
-import Link from "next/link";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -36,7 +35,7 @@ const Blocks = ({ blocks, setBlockBuilding }) => {
       height: blockData.height,
       builder: builder,
       twitterURL: blockData.twitterURL,
-      proofs,
+      proofs2,
     });
 
     // height.value = "";
@@ -48,14 +47,19 @@ const Blocks = ({ blocks, setBlockBuilding }) => {
   // Update
   const onSubmitEdits = async (e, id) => {
     e.preventDefault();
-    const { height, builder, twitterURL } = e.target;
-    await axios.post(`/api/blocks/update/${id}`, {
-      height: height.value,
-      builder: builder.value,
-      twitterURL: twitterURL.value,
-    });
+
+    try {
+      await axios.post(`https://stackchain-backend.herokuapp.com/api/blocks/update/${id}`, {
+      height: e.target.height.value,
+      builder: e.target.builder.value,
+      twitterURL:e.target.twitterURL.value
+    })
+  } catch (error) {
+    console.log(error)
+
+  };
     setEditing(null);
-    getBlocks();
+    // getBlocks();
   };
 
   // Delete
