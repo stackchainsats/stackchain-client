@@ -31,7 +31,7 @@ const Stackjoin = () => {
     <div>
       <h1>Stackjoin Block Builder</h1>
       <TextInputStyles> Write Your Tweet</TextInputStyles>
-      <span>TwitterHandle - $Ammount - URL - Time Stamp</span>>
+      <span>TwitterHandle - $Ammount - URL - Time Stamp</span>
       <Checkbox checked={checked} onChange={handleChange} />
       <Link href="/add-stackjoin">
         <Button>Add Stackjoin</Button>
