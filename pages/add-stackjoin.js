@@ -18,11 +18,14 @@ const AddStackjoin = () => {
   const onSubmitStackjoin = async (e) => {
     e.preventDefault();
 
-    await axios.post("/api/stackjoin", {
-      amount: stackjoin.height,
-      miner: stackjoin.miner,
-      twitterURL: stackjoin.twitterURL,
-    });
+    await axios.post(
+      "https://stackchain-backend.herokuapp.com/api/stackjoins",
+      {
+        amount: stackjoin.amount,
+        miner: stackjoin.miner,
+        twitterURL: stackjoin.twitterURL,
+      }
+    );
 
     // height.value = "";
     // builder.value = "";
