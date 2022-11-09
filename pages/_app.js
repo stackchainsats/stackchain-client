@@ -50,11 +50,6 @@ const MyApp = ({ Component, pageProps }) => {
     console.log("editBlock");
   };
 
-  const deleteBlock = () => {
-    // Delete Block
-    console.log("deleteBlock");
-  };
-
   const getMempool = async () => {
     setMempool(MempoolJSON);
     // const res = await axios.get("/api/transactions");
@@ -71,7 +66,6 @@ const MyApp = ({ Component, pageProps }) => {
           getBlocks={getBlocks}
           getBlock={getBlock}
           editBlock={editBlock}
-          deleteBlock={deleteBlock}
           blockBuilding={blockBuilding}
           setBlockBuilding={setBlockBuilding}
         />
