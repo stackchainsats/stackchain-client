@@ -26,11 +26,13 @@ const MyApp = ({ Component, pageProps }) => {
 
   // Read
   const getBlocks = async () => {
-    setBlocks(BlocksJSON);
-    console.log("getBlocks");
-    // const res = await axios.get("/api/blocks");
-    // const data = res.data;
-    // setBlocks(data);
+    // setBlocks(BlocksJSON);
+    // console.log("getBlocks");
+    const res = await axios.get(
+      "https://stackchain-backend.herokuapp.com/api/blocks"
+    );
+    const data = res.data;
+    setBlocks(data);
   };
 
   const getBlock = () => {
