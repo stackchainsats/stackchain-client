@@ -3,12 +3,14 @@ import Button from "../components/Button";
 import TextInput from "../components/TextInput";
 import axios from "axios";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
 const TextInputWrapper = styled.div`
   margin-bottom: 10px;
 `;
 
 const AddStackjoin = () => {
+  const router = useRouter();
   const [stackjoin, setStackjoin] = useState({
     amount: "",
     miner: "",
@@ -32,6 +34,8 @@ const AddStackjoin = () => {
       miner: "",
       twitterURL: "",
     });
+
+    router.push("/stackjoin");
   };
 
   return (
@@ -39,7 +43,7 @@ const AddStackjoin = () => {
       <h1>Add stackjoin page</h1>
       <TextInputWrapper>
         <TextInput
-          type="text"
+          type="number"
           name="amount"
           label="Amount"
           onChange={(e) =>
