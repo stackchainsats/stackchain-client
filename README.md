@@ -4,6 +4,26 @@ To run the app, you will need Node js installed [download here](https://nodejs.o
 
 Stackchain app uses Node v18.12.0
 
+## Linux / WSL Node Installation:
+
+Install nvm:
+```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+```
+Verify installation (close and reopen terminal first):
+```
+command -v nvm
+```
+Install node:
+```
+nvm install node
+```
+Verify installation:
+```
+node --version
+```
+
+
 ## Setting up SSH Keys with Github
 
 If you don't already have SSH keys on your computer for use with Github, you will need to generate them
