@@ -49,7 +49,11 @@ const Stackjoin = () => {
       "https://stackchain-backend.herokuapp.com/api/stackjoins"
     );
     const data = res.data;
-    setStackjoins(data);
+    const checkedAdded = data.map((item) => {
+      return { ...item, checked: false };
+    });
+
+    setStackjoins(checkedAdded);
   };
 
   const handleChange = (e) => {
@@ -73,7 +77,7 @@ const Stackjoin = () => {
         {stackjoins.map((stackjoin, index) => {
           return (
             <div className="stackjoin-row" key={index}>
-              <Checkbox checked={checked} onChange={handleChange} />
+              <Checkbox checked={stackjoin.checked} onChange={handleChange} />
               <div className="amount">{stackjoin.amount}</div>
               <div className="twitter">{stackjoin.miner}</div>
               <div className="url">
