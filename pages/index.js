@@ -19,9 +19,16 @@ export default function Home() {
       </Head>
 
       <h1>Dashboard Page</h1>
+      <p>The StackChain Dashboard is an application helping Stackchainers to organize, access, and use stackchain data.</p>
+      <Link href="https://www.google.com/url?q=https%3A%2F%2Ftwitter.com%2Fsearch%3Fq%3D%28%2523stackchaintip%29%2520%28from%253Astackchainsig%29%26src%3Dtyped_query%26f%3Dlive&sa=D&sntz=1&usg=AOvVaw2mTjfZFigCfs-y-8zsBZey" style={{ color: "#0000EE" }}>
+        Find The Tip!
+      </Link>
+      <br></br>
+      <br></br>
       <Link href="/components" style={{ color: "#0000EE" }}>
         Components
       </Link>
+
     </div>
   );
 }

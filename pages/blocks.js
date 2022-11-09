@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
-import Link from "next/link";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -36,7 +35,7 @@ const Blocks = ({ blocks, setBlockBuilding }) => {
       height: blockData.height,
       builder: builder,
       twitterURL: blockData.twitterURL,
-      proofs,
+      proofs2,
     });
 
     // height.value = "";
@@ -48,26 +47,19 @@ const Blocks = ({ blocks, setBlockBuilding }) => {
   // Update
   const onSubmitEdits = async (e, id) => {
     e.preventDefault();
-    const { height, builder, twitterURL } = e.target;
-    await axios.post(`/api/blocks/update/${id}`, {
-      height: height.value,
-      builder: builder.value,
-      twitterURL: twitterURL.value,
-    });
-    setEditing(null);
-    getBlocks();
-  };
 
-  // Delete
-  const deleteBlock = async (blockToDelete) => {
-    // await axios({
-    //   method: "DELETE",
-    //   url: "/api/blocks/",
-    //   data: {
-    //     id: blockToDelete,
-    //   },
-    // });
-    // await getBlocks();
+    try {
+      await axios.post(`https://stackchain-backend.herokuapp.com/api/blocks/update/${id}`, {
+      height: e.target.height.value,
+      builder: e.target.builder.value,
+      twitterURL:e.target.twitterURL.value
+    })
+  } catch (error) {
+    console.log(error)
+
+  };
+    setEditing(null);
+    // getBlocks();
   };
 
   return (
@@ -83,7 +75,6 @@ const Blocks = ({ blocks, setBlockBuilding }) => {
                 <BlockDisplay
                   block={block}
                   setEditing={setEditing}
-                  deleteBlock={deleteBlock}
                 />
               ) : (
                 <BlockEdit
@@ -100,7 +91,7 @@ const Blocks = ({ blocks, setBlockBuilding }) => {
   );
 };
 
-const BlockDisplay = ({ block, setEditing, deleteBlock }) => {
+const BlockDisplay = ({ block, setEditing }) => {
   return (
     <BlockWrapper key={block._id}>
       <div>
@@ -120,7 +111,6 @@ const BlockDisplay = ({ block, setEditing, deleteBlock }) => {
         </div>
         <div style={{ display: "flex" }}>
           <Button onClick={() => setEditing(block._id)}>Edit</Button>
-          <Button onClick={() => deleteBlock(block._id)}>Delete</Button>
         </div>
       </div>
 
