@@ -1,7 +1,8 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
+import axios from "axios";
 
 import styled from "styled-components";
 
@@ -13,16 +14,34 @@ const CreateBlockWrapper = styled.div`
   margin: 24px;
 `;
 
-const AddBlock = ({ blocks, blockBuilding }) => {
+const AddBlock = ({ blocks, blockBuilding, setBlockBuilding }) => {
   const [editing, setEditing] = useState(null);
   const [blockData, setBlockData] = useState({
     height: "",
-    parent: "",
     twitterURL: "",
   });
   const [proofs, setProofs] = useState([
     { amount: "", twitterURL: "", miner: "" },
   ]);
+
+  useEffect(() => {
+    if (blockBuilding.height) {
+      setBlockData({
+        height: blockBuilding.height,
+      });
+    }
+  }, []);
+
+  async function onSubmitBlock(e) {
+    e.preventDefault();
+    const builder = blockData?.twitterURL?.split("/")[3] || "";
+
+    await axios.post("https://stackchain-backend.herokuapp.com/api/blocks", {
+      height: blockData.height,
+      builder: builder,
+      twitterURL: blockData.twitterURL,
+    });
+  }
 
   // if (!blockBuilding.parent) {
   //   return (
@@ -63,7 +82,7 @@ const AddBlock = ({ blocks, blockBuilding }) => {
             })
           }
         />
-        <TextInput
+        {/* <TextInput
           type="text"
           name="parent"
           label="Parent"
@@ -74,7 +93,7 @@ const AddBlock = ({ blocks, blockBuilding }) => {
               parent: e.target.value,
             })
           }
-        />
+        /> */}
         <TextInput
           type="text"
           name="twitterURL"
@@ -87,7 +106,7 @@ const AddBlock = ({ blocks, blockBuilding }) => {
             })
           }
         />
-        <h2>Proofs:</h2>
+        {/* <h2>Proofs:</h2>
         <div>
           <div>Amount | Twitter URL</div>
           {proofs.map((proof, index) => {
@@ -127,7 +146,7 @@ const AddBlock = ({ blocks, blockBuilding }) => {
                   }}
                   value={proofs[index].twitterURL}
                 />
-                {index === proofs.length - 1 && (
+                {index === 0 && (
                   <Button
                     onClick={() =>
                       setProofs([...proofs, { amount: "", twitterURL: "" }])
@@ -139,8 +158,10 @@ const AddBlock = ({ blocks, blockBuilding }) => {
               </div>
             );
           })}
+        </div> */}
+        <div style={{ marginTop: "20px" }}>
+          <Button variation="primary">Add Block</Button>
         </div>
-        <Button variation="primary">Add Block</Button>
       </form>
     </CreateBlockWrapper>
   );

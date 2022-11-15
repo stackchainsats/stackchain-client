@@ -24,7 +24,7 @@ const BlockWrapper = styled.div`
   }
 `;
 
-const Blocks = ({ blocks, setBlockBuilding }) => {
+const Blocks = ({ blocks, blockBuilding, setBlockBuilding }) => {
   const [editing, setEditing] = useState(null);
   const [blockData, setBlockData] = useState({
     height: "",
@@ -44,7 +44,6 @@ const Blocks = ({ blocks, setBlockBuilding }) => {
       height: blockData.height,
       builder: builder,
       twitterURL: blockData.twitterURL,
-      proofs2,
     });
 
     // height.value = "";
@@ -83,7 +82,13 @@ const Blocks = ({ blocks, setBlockBuilding }) => {
           .map((block, index) => (
             <div key={index}>
               {editing !== block._id ? (
-                <BlockDisplay block={block} setEditing={setEditing} />
+                <BlockDisplay
+                  block={block}
+                  setEditing={setEditing}
+                  blockBuilding={blockBuilding}
+                  setBlockBuilding={setBlockBuilding}
+                  onSubmitBlock={onSubmitBlock}
+                />
               ) : (
                 <BlockEdit
                   block={block}
@@ -99,7 +104,12 @@ const Blocks = ({ blocks, setBlockBuilding }) => {
   );
 };
 
-const BlockDisplay = ({ block, setEditing }) => {
+const BlockDisplay = ({
+  block,
+  setEditing,
+  blockBuilding,
+  setBlockBuilding,
+}) => {
   return (
     <BlockWrapper key={block._id}>
       <div>
@@ -124,7 +134,12 @@ const BlockDisplay = ({ block, setEditing }) => {
 
       <div>
         <Link href={"/add-block"}>
-          <Button variation="primary">Build on this block</Button>
+          <Button
+            variation="primary"
+            onClick={() => setBlockBuilding({ height: block.height })}
+          >
+            Build on this block
+          </Button>
         </Link>
       </div>
     </BlockWrapper>
