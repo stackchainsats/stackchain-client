@@ -15,7 +15,7 @@ const CreateBlockWrapper = styled.div`
   margin: 24px;
 `;
 
-const AddBlock = ({ blocks, blockBuilding, setBlockBuilding }) => {
+const AddBlock = ({ blocks, blockBuilding, setBlockBuilding, getBlocks }) => {
   const router = useRouter();
   const [editing, setEditing] = useState(null);
   const [blockData, setBlockData] = useState({
@@ -45,6 +45,7 @@ const AddBlock = ({ blocks, blockBuilding, setBlockBuilding }) => {
     });
 
     router.push("/blocks");
+    getBlocks();
   }
 
   // if (!blockBuilding.parent) {
