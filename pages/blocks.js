@@ -3,6 +3,7 @@ import Button from "../components/Button";
 import TextInput from "../components/TextInput";
 import axios from "axios";
 import styled from "styled-components";
+import Link from "next/link";
 
 const BlockWrapper = styled.div`
   color: rgb(33, 43, 54);
@@ -13,6 +14,14 @@ const BlockWrapper = styled.div`
   margin-bottom: 12px;
   display: flex;
   justify-content: space-between;
+
+  & .block-stat {
+    margin-bottom: 10px;
+
+    & span {
+      font-weight: 700;
+    }
+  }
 `;
 
 const Blocks = ({ blocks, setBlockBuilding }) => {
@@ -49,15 +58,17 @@ const Blocks = ({ blocks, setBlockBuilding }) => {
     e.preventDefault();
 
     try {
-      await axios.post(`https://stackchain-backend.herokuapp.com/api/blocks/update/${id}`, {
-      height: e.target.height.value,
-      builder: e.target.builder.value,
-      twitterURL:e.target.twitterURL.value
-    })
-  } catch (error) {
-    console.log(error)
-
-  };
+      await axios.post(
+        `https://stackchain-backend.herokuapp.com/api/blocks/update/${id}`,
+        {
+          height: e.target.height.value,
+          builder: e.target.builder.value,
+          twitterURL: e.target.twitterURL.value,
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
     setEditing(null);
     // getBlocks();
   };
@@ -72,10 +83,7 @@ const Blocks = ({ blocks, setBlockBuilding }) => {
           .map((block, index) => (
             <div key={index}>
               {editing !== block._id ? (
-                <BlockDisplay
-                  block={block}
-                  setEditing={setEditing}
-                />
+                <BlockDisplay block={block} setEditing={setEditing} />
               ) : (
                 <BlockEdit
                   block={block}
@@ -96,16 +104,16 @@ const BlockDisplay = ({ block, setEditing }) => {
     <BlockWrapper key={block._id}>
       <div>
         <div>
-          <div>
-            <span>Height:</span>
+          <div className="block-stat">
+            <span>Height: </span>
             {block.height}
           </div>
-          <div>
-            <span>Builder:</span>
+          <div className="block-stat">
+            <span>Builder: </span>
             {block.builder}
           </div>
-          <div>
-            <span>Twitter URL:</span>
+          <div className="block-stat">
+            <span>Twitter URL: </span>
             {block.twitterURL}
           </div>
         </div>
@@ -115,18 +123,19 @@ const BlockDisplay = ({ block, setEditing }) => {
       </div>
 
       <div>
-        <Button variation="primary">Build on this block</Button>
+        <Link href={"/add-block"}>
+          <Button variation="primary">Build on this block</Button>
+        </Link>
       </div>
     </BlockWrapper>
   );
 };
 
 const BlockEdit = ({ block, onSubmitEdits, setEditing, setBlockData }) => {
-  const [height, setHeight] = useState(block.height)
-  const [builder, setBuilder] = useState(block.builder)
-  const [twitterURL, setTwitterURL] = useState(block.twitterURL)
+  const [height, setHeight] = useState(block.height);
+  const [builder, setBuilder] = useState(block.builder);
+  const [twitterURL, setTwitterURL] = useState(block.twitterURL);
 
-  
   return (
     <BlockWrapper key={block._id} className="DataOutput__editing">
       <form onSubmit={(e) => onSubmitEdits(e, block._id)}>
@@ -136,7 +145,7 @@ const BlockEdit = ({ block, onSubmitEdits, setEditing, setBlockData }) => {
             name="height"
             label="Height"
             value={height}
-            onChange={(e) => setHeight(e.target.value) }
+            onChange={(e) => setHeight(e.target.value)}
           />
         </div>
         <div className="DataOutput__editing--option">
@@ -145,7 +154,7 @@ const BlockEdit = ({ block, onSubmitEdits, setEditing, setBlockData }) => {
             name="builder"
             label="Builder"
             value={builder}
-            onChange={(e) => setBuilder(e.target.value) }
+            onChange={(e) => setBuilder(e.target.value)}
           />
         </div>
         <div className="DataOutput__editing--option">
@@ -157,7 +166,7 @@ const BlockEdit = ({ block, onSubmitEdits, setEditing, setBlockData }) => {
             onChange={(e) => setTwitterURL(e.target.value)}
           />
         </div>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", marginTop: "20px" }}>
           <Button type="Submit">Submit</Button>
           <Button
             className="DataOutput__editing--cancel"
