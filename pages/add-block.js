@@ -5,6 +5,7 @@ import TextInput from "../components/TextInput";
 import axios from "axios";
 
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
 const CreateBlockWrapper = styled.div`
   box-shadow: rgb(145 158 171 / 20%) 0px 0px 2px 0px,
@@ -15,6 +16,7 @@ const CreateBlockWrapper = styled.div`
 `;
 
 const AddBlock = ({ blocks, blockBuilding, setBlockBuilding }) => {
+  const router = useRouter();
   const [editing, setEditing] = useState(null);
   const [blockData, setBlockData] = useState({
     height: "",
@@ -27,7 +29,7 @@ const AddBlock = ({ blocks, blockBuilding, setBlockBuilding }) => {
   useEffect(() => {
     if (blockBuilding.height) {
       setBlockData({
-        height: blockBuilding.height,
+        height: blockBuilding.height + 1,
       });
     }
   }, []);
@@ -41,6 +43,8 @@ const AddBlock = ({ blocks, blockBuilding, setBlockBuilding }) => {
       builder: builder,
       twitterURL: blockData.twitterURL,
     });
+
+    router.push("/blocks");
   }
 
   // if (!blockBuilding.parent) {
