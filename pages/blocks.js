@@ -127,12 +127,12 @@ const BlockDisplay = ({
             {block.twitterURL}
           </div>
         </div>
-        <div style={{ display: "flex" }}>
-          <Button onClick={() => setEditing(block._id)}>Edit</Button>
-        </div>
       </div>
 
-      <div>
+      <div style={{ display: "flex" }}>
+        <div style={{ marginRight: "12px" }}>
+          <Button onClick={() => setEditing(block._id)}>Edit</Button>
+        </div>
         <Link href={"/add-block"}>
           <Button
             variation="primary"
