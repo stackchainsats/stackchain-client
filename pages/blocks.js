@@ -50,30 +50,14 @@ const Blocks = ({ blocks, blockBuilding, setBlockBuilding }) => {
         (_, index) => index >= startingIndex && index < startingIndex + 100
       )
       .map((block, index) => (
-        <div key={index}>
-          <BlockListItem
-            block={block}
-            setEditing={setEditing}
-            setBlockBuilding={setBlockBuilding}
-          />
-
-          {/* {editing !== block._id ? (
-            <BlockDisplay
-              block={block}
-              setEditing={setEditing}
-              blockBuilding={blockBuilding}
-              setBlockBuilding={setBlockBuilding}
-              onSubmitBlock={onSubmitBlock}
-            />
-          ) : (
-            <BlockEdit
-              block={block}
-              onSubmitEdits={onSubmitEdits}
-              setEditing={setEditing}
-              setBlockData={setBlockData}
-            />
-          )} */}
-        </div>
+        <BlockListItem
+          key={index}
+          block={block}
+          setEditing={setEditing}
+          onSubmitEdits={onSubmitEdits}
+          setBlockBuilding={setBlockBuilding}
+          setBlockData={setBlockData}
+        />
       ));
     return newItems;
   };
@@ -117,7 +101,7 @@ const Blocks = ({ blocks, blockBuilding, setBlockBuilding }) => {
 
   return (
     <div>
-      <h1>Blocks Page</h1>
+      <BlockTitle>Stackchain Blocks</BlockTitle>
       <BlockListWrapper>
         <VirtualAndInfiniteScroll
           listItems={items}
@@ -134,6 +118,12 @@ const Blocks = ({ blocks, blockBuilding, setBlockBuilding }) => {
   );
 };
 
+const BlockTitle = styled.h1`
+  width: 1200px;
+  margin: 40px auto 30px auto;
+  padding-left: 16px;
+`;
+
 const BlockListWrapper = styled.div`
   box-shadow: rgb(100 116 139 / 6%) 0px 1px 1px,
     rgb(100 116 139 / 10%) 0px 1px 2px;
@@ -141,6 +131,17 @@ const BlockListWrapper = styled.div`
   text-align: left;
   max-width: 1200px;
   margin: 0 auto;
+  border-top: 1px solid rgb(240, 240, 240);
+
+  &:first-child {
+    color: red;
+  }
+
+  h1 {
+    width: 1200px;
+    margin: 40px auto 20px auto;
+    padding-left: 16px;
+  }
 
   color: #212b36;
 
@@ -220,7 +221,7 @@ const BlockListItemWrapper = styled.div`
 
 const BlockListItem = ({ block, setEditing, setBlockBuilding }) => {
   return (
-    <BlockListItemWrapper>
+    <BlockListItemWrapper className="block-list-item">
       <div className="block-height block-column">
         <Link href={`block/${block.height}`}>{block.height}</Link>
       </div>
@@ -259,33 +260,40 @@ const BlockListItem = ({ block, setEditing, setBlockBuilding }) => {
             <path d="M880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32zm-622.3-84c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 0 0 0-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 0 0 9.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89z"></path>
           </svg>
         </div>
-        <div className="block-action">
-          <svg
-            stroke="currentColor"
-            fill="currentColor"
-            strokeWidth="0"
-            viewBox="0 0 512 512"
-            height="1em"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
+        <Link href={"/add-block"}>
+          <div
+            className="block-action"
+            onClick={() => setBlockBuilding({ height: block.height + 1 })}
           >
-            <path d="M474.1 398.2L289.1 212c18.3-47 8.1-102.3-30.5-141.1C217.9 30 156.9 21.8 108.1 44.3l87.4 88-61 61.4-89.5-88c-24.3 49-14.1 110.4 26.5 151.3 38.6 38.9 93.5 49.1 140.3 30.7l185 186.2c8.1 8.2 20.3 8.2 28.5 0l46.8-47c10.2-8.3 10.2-22.6 2-28.7z"></path>
-          </svg>
-        </div>
-        <div className="block-action">
-          <svg
-            stroke="currentColor"
-            fill="currentColor"
-            strokeWidth="0"
-            viewBox="0 0 24 24"
-            height="1em"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z"></path>
-            <path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"></path>
-          </svg>
-        </div>
+            <svg
+              stroke="currentColor"
+              fill="currentColor"
+              strokeWidth="0"
+              viewBox="0 0 512 512"
+              height="1em"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M474.1 398.2L289.1 212c18.3-47 8.1-102.3-30.5-141.1C217.9 30 156.9 21.8 108.1 44.3l87.4 88-61 61.4-89.5-88c-24.3 49-14.1 110.4 26.5 151.3 38.6 38.9 93.5 49.1 140.3 30.7l185 186.2c8.1 8.2 20.3 8.2 28.5 0l46.8-47c10.2-8.3 10.2-22.6 2-28.7z"></path>
+            </svg>
+          </div>
+        </Link>
+        <a href={block.twitterURL} target="_blank" rel="noreferrer">
+          <div className="block-action">
+            <svg
+              stroke="currentColor"
+              fill="currentColor"
+              strokeWidth="0"
+              viewBox="0 0 24 24"
+              height="1em"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z"></path>
+              <path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"></path>
+            </svg>
+          </div>
+        </a>
       </div>
     </BlockListItemWrapper>
   );

@@ -29,7 +29,7 @@ const AddBlock = ({ blocks, blockBuilding, setBlockBuilding, getBlocks }) => {
   useEffect(() => {
     if (blockBuilding.height) {
       setBlockData({
-        height: blockBuilding.height + 1,
+        height: blockBuilding.height,
       });
     }
   }, []);
