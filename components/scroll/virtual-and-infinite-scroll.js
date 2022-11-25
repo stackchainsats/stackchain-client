@@ -7,8 +7,10 @@ import InfiniteScroll from "./infinite-scroll";
  * infinite scrolling.
  */
 function VirtualAndInfiniteScroll({ listItems, height, lastRowHandler }) {
-  const VirtualScrollChildren = listItems.map((listItem) => (
-    <VirtualScrollChild height={height} children={listItem} />
+  const VirtualScrollChildren = listItems.map((listItem, index) => (
+    <VirtualScrollChild height={height} key={index}>
+      {listItem}
+    </VirtualScrollChild>
   ));
 
   return (

@@ -12,7 +12,11 @@ function InfiniteScroll({ listItems, lastRowHandler }) {
   const Elements = listItems.map((listItem, i) => {
     const props = { key: i };
     i === listItems.length - 1 && (props["ref"] = lastRowRef);
-    return <div {...props}>{listItem}</div>;
+    return (
+      <div {...props} key={i}>
+        {listItem}
+      </div>
+    );
   });
   return <>{Elements}</>;
 }
