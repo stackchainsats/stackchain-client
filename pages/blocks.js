@@ -47,7 +47,7 @@ const Blocks = ({ blocks, blockBuilding, setBlockBuilding }) => {
   const renderTenBlocks = (startingIndex) => {
     const newItems = blocks
       .filter(
-        (_, index) => index >= startingIndex && index < startingIndex + 50
+        (_, index) => index >= startingIndex && index < startingIndex + 100
       )
       .map((block, index) => (
         <div key={index}>
@@ -166,10 +166,10 @@ const BlockListWrapper = styled.div`
     font-weight: 600;
   }
 
-  .block-url {
+  a {
     transition: 0.3s all;
   }
-  .block-url:hover {
+  a:hover {
     color: orange;
   }
   @media (max-width: 800px) {
@@ -227,7 +227,15 @@ const BlockListItem = ({ block, setEditing, setBlockBuilding }) => {
         {block.builder?.split("")[0]}
       </div>
 
-      <div className="block-builder block-column">{block.builder}</div>
+      <div className="block-builder block-column">
+        <a
+          href={`https://www.twitter.com/${block.builder}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {block.builder}
+        </a>
+      </div>
       {/* <div className="block-stackers block-column"># of stackers</div> */}
       <div className="block-url block-column">
         <a href={block.twitterURL} target="_blank" rel="noreferrer">
