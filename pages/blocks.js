@@ -221,8 +221,9 @@ const BlockListItemWrapper = styled.div`
 const BlockListItem = ({ block, setEditing, setBlockBuilding }) => {
   return (
     <BlockListItemWrapper>
-      {/* <h1>{block.name}</h1> */}
-      <div className="block-height block-column">{block.height}</div>
+      <div className="block-height block-column">
+        <Link href={`block/${block.height}`}>{block.height}</Link>
+      </div>
       <div className="block-avatar block-column">
         {block.builder?.split("")[0]}
       </div>
