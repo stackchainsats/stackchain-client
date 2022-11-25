@@ -47,7 +47,7 @@ const Blocks = ({ blocks, blockBuilding, setBlockBuilding }) => {
   const renderTenBlocks = (startingIndex) => {
     const newItems = blocks
       .filter(
-        (_, index) => index >= startingIndex && index < startingIndex + 10
+        (_, index) => index >= startingIndex && index < startingIndex + 50
       )
       .map((block, index) => (
         <div key={index}>
