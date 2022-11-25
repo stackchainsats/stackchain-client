@@ -139,6 +139,8 @@ const BlockListWrapper = styled.div`
     rgb(100 116 139 / 10%) 0px 1px 2px;
   background-image: none;
   text-align: left;
+  max-width: 1200px;
+  margin: 0 auto;
 
   color: #212b36;
 
