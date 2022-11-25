@@ -42,7 +42,7 @@ const Blocks = ({ blocks, blockBuilding, setBlockBuilding }) => {
   useEffect(() => {
     const firstTenBlocks = renderTenBlocks(0);
     setItems(firstTenBlocks);
-  }, []);
+  }, [blocks]);
 
   const renderTenBlocks = (startingIndex) => {
     const newItems = blocks
