@@ -53,6 +53,7 @@ const Blocks = ({ blocks, blockBuilding, setBlockBuilding }) => {
         <BlockListItem
           key={index}
           block={block}
+          editing={editing}
           setEditing={setEditing}
           onSubmitEdits={onSubmitEdits}
           setBlockBuilding={setBlockBuilding}
@@ -150,7 +151,8 @@ const BlockListWrapper = styled.div`
   }
 
   .block-height {
-    width: 102px;
+    width: 120px;
+    min-width: 120px;
   }
   .block-avatar {
     background-color: black;
@@ -219,7 +221,18 @@ const BlockListItemWrapper = styled.div`
   }
 `;
 
-const BlockListItem = ({ block, setEditing, setBlockBuilding }) => {
+const BlockListItem = ({
+  block,
+  editing,
+  setEditing,
+  onSubmitEdits,
+  setBlockBuilding,
+  setBlockData,
+}) => {
+  const [height, setHeight] = useState(block.height);
+  const [builder, setBuilder] = useState(block.builder);
+  const [twitterURL, setTwitterURL] = useState(block.twitterURL);
+
   return (
     <BlockListItemWrapper className="block-list-item">
       <div className="block-height block-column">
@@ -246,7 +259,7 @@ const BlockListItem = ({ block, setEditing, setBlockBuilding }) => {
       </div>
 
       <div className="block-actions block-column">
-        <div className="block-action">
+        <div className="block-action" onClick={() => console.log("edit block")}>
           <svg
             stroke="currentColor"
             fill="currentColor"
@@ -296,57 +309,6 @@ const BlockListItem = ({ block, setEditing, setBlockBuilding }) => {
         </a>
       </div>
     </BlockListItemWrapper>
-  );
-};
-
-const BlockDisplay = ({
-  block,
-  setEditing,
-  blockBuilding,
-  setBlockBuilding,
-}) => {
-  const splitURL = block?.twitterURL?.split("/");
-  const tweetId = splitURL?.[5];
-
-  return (
-    <BlockWrapper key={block._id}>
-      <div>
-        <div>
-          <div className="block-stat">
-            <span>Height: </span>
-            {block.height}
-          </div>
-          <div className="block-stat">
-            <span>Builder: </span>
-            {block.builder}
-          </div>
-          <div className="block-stat">
-            <span>Twitter URL: </span>
-            {block.twitterURL}
-          </div>
-          {/* {tweetId && (
-            <TwitterTweetEmbed
-              tweetId={tweetId}
-              options={{ conversation: "none" }}
-            />
-          )} */}
-        </div>
-      </div>
-
-      <div style={{ display: "flex" }}>
-        <div style={{ marginRight: "12px" }}>
-          <Button onClick={() => setEditing(block._id)}>Edit</Button>
-        </div>
-        <Link href={"/add-block"}>
-          <Button
-            variation="primary"
-            onClick={() => setBlockBuilding({ height: block.height })}
-          >
-            Build on this block
-          </Button>
-        </Link>
-      </div>
-    </BlockWrapper>
   );
 };
 
