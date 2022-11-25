@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
 import axios from "axios";
 import styled from "styled-components";
 import Link from "next/link";
+import { TwitterTweetEmbed } from "react-twitter-embed";
+import VirtualAndInfiniteScroll from "../components/scroll/virtual-and-infinite-scroll";
 
 const BlockWrapper = styled.div`
   color: rgb(33, 43, 54);
@@ -34,6 +36,41 @@ const Blocks = ({ blocks, blockBuilding, setBlockBuilding }) => {
   const [proofs, setProofs] = useState([
     { amount: "", twitterURL: "", miner: "" },
   ]);
+
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    const firstTenBlocks = renderTenBlocks(0);
+    setItems(firstTenBlocks);
+  }, []);
+
+  const renderTenBlocks = (startingIndex) => {
+    const newItems = blocks
+      .filter(
+        (_, index) => index >= startingIndex && index < startingIndex + 10
+      )
+      .map((block, index) => (
+        <div key={index}>
+          {editing !== block._id ? (
+            <BlockDisplay
+              block={block}
+              setEditing={setEditing}
+              blockBuilding={blockBuilding}
+              setBlockBuilding={setBlockBuilding}
+              onSubmitBlock={onSubmitBlock}
+            />
+          ) : (
+            <BlockEdit
+              block={block}
+              onSubmitEdits={onSubmitEdits}
+              setEditing={setEditing}
+              setBlockData={setBlockData}
+            />
+          )}
+        </div>
+      ));
+    return newItems;
+  };
 
   // Create
   const onSubmitBlock = async (e) => {
@@ -75,31 +112,16 @@ const Blocks = ({ blocks, blockBuilding, setBlockBuilding }) => {
   return (
     <div>
       <h1>Blocks Page</h1>
-
-      <div className="DataOutput">
-        {blocks
-          .sort((a, b) => b.height - a.height)
-          .map((block, index) => (
-            <div key={index}>
-              {editing !== block._id ? (
-                <BlockDisplay
-                  block={block}
-                  setEditing={setEditing}
-                  blockBuilding={blockBuilding}
-                  setBlockBuilding={setBlockBuilding}
-                  onSubmitBlock={onSubmitBlock}
-                />
-              ) : (
-                <BlockEdit
-                  block={block}
-                  onSubmitEdits={onSubmitEdits}
-                  setEditing={setEditing}
-                  setBlockData={setBlockData}
-                />
-              )}
-            </div>
-          ))}
-      </div>
+      <VirtualAndInfiniteScroll
+        listItems={items}
+        height={150}
+        lastRowHandler={() => {
+          setTimeout(() => {
+            const newBlocks = renderTenBlocks(items.length);
+            setItems(items.concat(newBlocks));
+          }, 1000);
+        }}
+      />
     </div>
   );
 };
@@ -110,6 +132,9 @@ const BlockDisplay = ({
   blockBuilding,
   setBlockBuilding,
 }) => {
+  const splitURL = block?.twitterURL?.split("/");
+  const tweetId = splitURL?.[5];
+
   return (
     <BlockWrapper key={block._id}>
       <div>
@@ -126,6 +151,12 @@ const BlockDisplay = ({
             <span>Twitter URL: </span>
             {block.twitterURL}
           </div>
+          {/* {tweetId && (
+            <TwitterTweetEmbed
+              tweetId={tweetId}
+              options={{ conversation: "none" }}
+            />
+          )} */}
         </div>
       </div>
 

@@ -20,8 +20,6 @@ const MyApp = ({ Component, pageProps }) => {
   useEffect(() => {
     getBlocks();
     getMempool();
-
-    // getMempool();
   }, []);
 
   // Read
@@ -31,7 +29,7 @@ const MyApp = ({ Component, pageProps }) => {
     const res = await axios.get(
       "https://stackchain-backend.herokuapp.com/api/blocks"
     );
-    const data = res.data;
+    const data = res.data.sort((a, b) => b.height - a.height);
     setBlocks(data);
   };
 
