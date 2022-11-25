@@ -228,7 +228,7 @@ const BlockListItem = ({ block, setEditing, setBlockBuilding }) => {
       <div className="block-builder block-column">{block.builder}</div>
       {/* <div className="block-stackers block-column"># of stackers</div> */}
       <div className="block-url block-column">
-        <a href={block.twitterURL} target="_blank">
+        <a href={block.twitterURL} target="_blank" rel="noreferrer">
           {block.twitterURL}
         </a>
       </div>
