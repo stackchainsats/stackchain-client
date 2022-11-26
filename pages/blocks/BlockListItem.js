@@ -1,225 +1,8 @@
-import { useState, useEffect } from "react";
-import Button from "../components/Button";
-import TextInput from "../components/TextInput";
-import axios from "axios";
+import { useState } from "react";
+import Button from "../../components/Button";
+import TextInput from "../../components/TextInput";
 import styled from "styled-components";
 import Link from "next/link";
-import { TwitterTweetEmbed } from "react-twitter-embed";
-import VirtualAndInfiniteScroll from "../components/scroll/virtual-and-infinite-scroll";
-
-const BlockWrapper = styled.div`
-  color: rgb(33, 43, 54);
-  box-shadow: rgb(145 158 171 / 20%) 0px 0px 2px 0px,
-    rgb(145 158 171 / 12%) 0px 12px 24px -4px;
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 12px;
-  display: flex;
-  justify-content: space-between;
-
-  & .block-stat {
-    margin-bottom: 10px;
-
-    & span {
-      font-weight: 700;
-    }
-  }
-`;
-
-const Blocks = ({ blocks, blockBuilding, setBlockBuilding }) => {
-  const [editing, setEditing] = useState(null);
-  const [blockData, setBlockData] = useState({
-    height: "",
-    parent: "",
-    twitterURL: "",
-  });
-  const [proofs, setProofs] = useState([
-    { amount: "", twitterURL: "", miner: "" },
-  ]);
-
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    const firstTenBlocks = renderTenBlocks(0);
-    setItems(firstTenBlocks);
-  }, [blocks]);
-
-  const renderTenBlocks = (startingIndex) => {
-    const newItems = blocks
-      .filter(
-        (_, index) => index >= startingIndex && index < startingIndex + 100
-      )
-      .map((block, index) => (
-        <BlockListItem
-          key={index}
-          block={block}
-          editing={editing}
-          setEditing={setEditing}
-          onSubmitEdits={onSubmitEdits}
-          setBlockBuilding={setBlockBuilding}
-          setBlockData={setBlockData}
-        />
-      ));
-    return newItems;
-  };
-
-  // Create
-  const onSubmitBlock = async (e) => {
-    e.preventDefault();
-    const builder = blockData?.twitterURL?.split("/")[3] || "";
-
-    await axios.post("/api/blocks", {
-      height: blockData.height,
-      builder: builder,
-      twitterURL: blockData.twitterURL,
-    });
-
-    // height.value = "";
-    // builder.value = "";
-    // twitterURL.value = "";
-    // getBlocks();
-  };
-
-  // Update
-  const onSubmitEdits = async (e, id) => {
-    e.preventDefault();
-
-    try {
-      await axios.post(
-        `https://stackchain-backend.herokuapp.com/api/blocks/update/${id}`,
-        {
-          height: e.target.height.value,
-          builder: e.target.builder.value,
-          twitterURL: e.target.twitterURL.value,
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-    setEditing(null);
-    // getBlocks();
-  };
-
-  return (
-    <div>
-      <BlockTitle>Stackchain Blocks</BlockTitle>
-      <BlockListWrapper>
-        <VirtualAndInfiniteScroll
-          listItems={items}
-          height={78}
-          lastRowHandler={() => {
-            setTimeout(() => {
-              const newBlocks = renderTenBlocks(items.length);
-              setItems(items.concat(newBlocks));
-            }, 1000);
-          }}
-        />
-      </BlockListWrapper>
-    </div>
-  );
-};
-
-const BlockTitle = styled.h1`
-  width: 1200px;
-  margin: 40px auto 30px auto;
-  padding-left: 16px;
-`;
-
-const BlockListWrapper = styled.div`
-  box-shadow: rgb(100 116 139 / 6%) 0px 1px 1px,
-    rgb(100 116 139 / 10%) 0px 1px 2px;
-  background-image: none;
-  text-align: left;
-  max-width: 1200px;
-  margin: 0 auto;
-  border-top: 1px solid rgb(240, 240, 240);
-
-  &:first-child {
-    color: red;
-  }
-
-  h1 {
-    width: 1200px;
-    margin: 40px auto 20px auto;
-    padding-left: 16px;
-  }
-
-  color: #212b36;
-
-  .block-column {
-    padding: 16px 32px;
-  }
-
-  .block-height {
-    width: 120px;
-    min-width: 120px;
-  }
-  .block-avatar {
-    background-color: black;
-    color: white;
-    height: 42px;
-    width: 42px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-  }
-  .block-builder {
-    font-weight: 600;
-  }
-
-  a {
-    transition: 0.3s all;
-  }
-  a:hover {
-    color: orange;
-  }
-  @media (max-width: 800px) {
-    .block-url {
-      display: none;
-    }
-  }
-
-  .block-builder,
-  .block-stackers {
-    width: 50%;
-  }
-
-  .block-actions {
-    display: flex;
-    justify-content: flex-end;
-  }
-  .block-action {
-    padding: 8px;
-    margin: 0 4px;
-    cursor: pointer;
-    transition: 0.3s all;
-  }
-  .block-action svg {
-    font-size: 20px;
-    color: #637381;
-  }
-  .block-action:hover {
-    background: rgb(240, 240, 240);
-    border-radius: 4px;
-    svg {
-      color: #262626;
-    }
-  }
-`;
-
-const BlockListItemWrapper = styled.div`
-  display: flex;
-  align-items: center;
-
-  height: 77px;
-  border-bottom: 1px solid rgb(240, 240, 240);
-
-  &:hover {
-    background: rgb(250, 250, 250);
-  }
-`;
 
 const BlockListItem = ({
   block,
@@ -312,6 +95,8 @@ const BlockListItem = ({
   );
 };
 
+export default BlockListItem;
+
 const BlockEdit = ({ block, onSubmitEdits, setEditing, setBlockData }) => {
   const [height, setHeight] = useState(block.height);
   const [builder, setBuilder] = useState(block.builder);
@@ -362,4 +147,14 @@ const BlockEdit = ({ block, onSubmitEdits, setEditing, setBlockData }) => {
   );
 };
 
-export default Blocks;
+const BlockListItemWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  height: 77px;
+  border-bottom: 1px solid rgb(240, 240, 240);
+
+  &:hover {
+    background: rgb(250, 250, 250);
+  }
+`;
